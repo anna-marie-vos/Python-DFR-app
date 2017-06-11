@@ -34,15 +34,12 @@ class Window():
         content = service.content
         serviceNames = []
         self.serviceNames = serviceNames
-
         for index, serviceName in enumerate(content):
-            self.serviceNames.append(serviceName)
-
-        print(self.serviceNames)
+            self.serviceNames.append(serviceName)            
 
 
     def renderServices(self,index,key):
-        services = service.content[key]
+        services = self.serviceNames
         services = Variable()
         name = key
 
@@ -52,7 +49,7 @@ class Window():
 
     def renderSubject(self,key):
         subjects = service.content[key]
-        
+
         for i,para in enumerate(subjects):
             name = para
             heading = subjects[para]['heading']
