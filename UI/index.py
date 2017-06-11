@@ -5,7 +5,6 @@ from db.state import Service
 Dfr = DFR()
 service = Service('service')
 
-print(service.service)
 
 class Window():
     def __init__(self, window):
@@ -24,6 +23,17 @@ class Window():
         checked = Variable()
         item = Checkbutton(window, text="item1", variable=checked)
         item.grid(row=2, column = 0, columnspan = 3)
+
+        keys = service.content
+        for index,key in enumerate(keys):
+            print(key)
+            print(index)
+            name = key
+            keys[key] = Variable()
+            name = Checkbutton(window, text=key, variable=keys[key])
+            name.grid(row = (2+index), column = 0, columnspan = 3)
+
+        # window.mainloop()
 
 window=Tk()
 Window(window)
