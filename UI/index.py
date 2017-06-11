@@ -24,16 +24,43 @@ class Window():
         item = Checkbutton(window, text="item1", variable=checked)
         item.grid(row=2, column = 0, columnspan = 3)
 
+        self.mapContent()
+
         keys = service.content
         for index,key in enumerate(keys):
-            print(key)
-            print(index)
-            name = key
-            keys[key] = Variable()
-            name = Checkbutton(window, text=key, variable=keys[key])
-            name.grid(row = (2+index), column = 0, columnspan = 3)
+            self.renderServices(index,key)
 
-        # window.mainloop()
+    def mapContent(self):
+        content = service.content
+        serviceNames = []
+        self.serviceNames = serviceNames
+
+        for index, serviceName in enumerate(content):
+            self.serviceNames.append(serviceName)
+
+        print(self.serviceNames)
+
+
+    def renderServices(self,index,key):
+        services = service.content[key]
+        services = Variable()
+        name = key
+
+        name = Checkbutton(window, text=key, variable=services)
+        name.grid(row = (2+index), column = 0, columnspan = 3)
+        self.renderSubject(key)
+
+    def renderSubject(self,key):
+        subjects = service.content[key]
+        
+        for i,para in enumerate(subjects):
+            name = para
+            heading = subjects[para]['heading']
+            heading = Variable()
+            name = Checkbutton(window, text=key, variable=heading)
+            name.grid(row = (2+i), column = (4+i), columnspan = 3)
+
+
 
 window=Tk()
 Window(window)

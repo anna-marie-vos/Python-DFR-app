@@ -27,6 +27,26 @@ class Service(object):
                     "heading": "Pipes2",
                     "para": "blab blab blab blab"
                 }
+            },
+            "Electrical": {
+                "1.1": {
+                    "heading" : "lights",
+                    "para": "blblbl blbl blblb blblb"
+                },
+                "1.2": {
+                    "heading": "conduits",
+                    "para": "blab blab blab blab"
+                }
+            },
+            "ICT": {
+                "1.1": {
+                    "heading" : "TV",
+                    "para": "blblbl blbl blblb blblb"
+                },
+                "1.2": {
+                    "heading": "conduits",
+                    "para": "blab blab blab blab"
+                }
             }
 
         }
