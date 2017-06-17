@@ -5,6 +5,11 @@ from tkinter import *
 class Window(object):
     def __init__(self,window):
         self.Data()
+        self.allServices = []
+        self.servicesVar = {}
+        self.allSections = []
+        self.sectionsAdded = []
+        self.activeServices = []
 
         self.window = window
         self.window.geometry("500x500+100+100")
@@ -22,33 +27,37 @@ class Window(object):
 
     def renderServices(self):
         i = 0
-        servicesData = self.data
-        self.var = {}
-        for key, value in servicesData.items():
+        for key, value in self.data.items():
             i +=1
-            self.var.update({key:IntVar()})
+            self.servicesVar.update({key:IntVar()})
             service = Checkbutton(window, text=key,
-                variable=self.var[key], command=self.renderSections)
+                variable=self.servicesVar[key],
+                command=self.findActiveService)
             service.grid(row = i, column = 1)
+            self.allServices.append(service)
+
+    def findActiveService(self):
+        del self.activeServices[:]
+        i = len(self.data)+1
+        for key in self.servicesVar:
+            if self.servicesVar[key].get() == 1:
+                self.activeServices.append(key)
+        self.renderSections()
 
     def renderSections(self):
-        self.sectionsArray = []
+        self.clearSections()
         i = len(self.data)+1
+        for service in self.activeServices:
+            for key in self.data[service]:
+                i+=1
+                section = Checkbutton(window, text=key)
+                section.grid(row=i+1,column = 1)
+                self.sectionsAdded.append(section)
 
-        for key in self.var:
-            if self.var[key].get() == 1:
-                for k in self.data[key]:
-                    i+=2
-                    section = Checkbutton(window, text=k)
-                    section.grid(row=i+1,column = 1)
-                    self.sectionsArray.append(section)
-            elif self.var[key].get() == 0:
-                self.eraseSections()
 
-    def eraseSections(self):
-        for item in self.sectionsArray:
-            item.destroy()
-            print('sectionsArray',item)
+    def clearSections(self):
+        for obj in self.sectionsAdded:
+            obj.destroy()
 
     def Data(self):
         self.data = {
