@@ -16,6 +16,13 @@ data = {
             'ele3 ele3 elec3'
         ]
     },
+        'Hydraulics':{
+            '1.1':'pipes',
+            'paragraphs':['pipe pipe pipe',
+                'pipe2 pipe2 pipe2',
+                'pipe3 pipe3 pipe3'
+            ]
+        },
 }
 
 window = Tk()
@@ -36,11 +43,12 @@ def checkboxes():
     i=0
     for k, v in data.items():
         i += 1
-        print (k, ", ","value")
-        var = IntVar()
-        c = Checkbutton(window, text=k, variable=var)
+        print (k, ", ")
+        v = IntVar()
+        c = Checkbutton(window, text=k, variable=v)
         c.grid(row=i,column=1)
-
+        c.var = v
+        print(c.var.get())
 checkboxes()
 
 window.mainloop()
