@@ -27,6 +27,7 @@ class Window(object):
         systemsLabel.grid(row=len(self.data)+1, column="0")
 
     def renderServices(self):
+        '''renders all se services Checkbuttons'''
         i = 0
         for key, value in self.data.items():
             i +=1
@@ -38,6 +39,7 @@ class Window(object):
             self.allServices.append(service)
 
     def findActiveService(self):
+        '''Addes the active services to an array'''
         del self.activeServices[:]
         i = len(self.data)+1
         for key in self.servicesVar:
@@ -46,20 +48,23 @@ class Window(object):
         self.renderSections()
 
     def renderSections(self):
+        '''Checks which services are active
+        and renders all the relevent sections'''
         self.clearSections()
         i = len(self.data)+1
         for service in self.activeServices:
-            systemsLabel = Label(window, text=service)
+            systemsLabel = Label(window, text=service+":")
             systemsLabel.grid(row=i+2, column="0")
             self.sectionsAdded.append(systemsLabel)
             for key in self.data[service]:
-                i+=1
+                i+=2
                 section = Checkbutton(window, text=key)
                 section.grid(row=i+1,column = 1)
                 self.sectionsAdded.append(section)
 
 
     def clearSections(self):
+        '''Clears the selected sections '''
         for obj in self.sectionsAdded:
             obj.destroy()
 
