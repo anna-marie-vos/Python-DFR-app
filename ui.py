@@ -10,16 +10,17 @@ class Window(object):
         self.allSections = []
         self.sectionsAdded = []
         self.activeServices = []
+        self.activeServiceLabels = []
 
         self.window = window
         self.window.geometry("500x500+100+100")
         self.window.wm_title("DFR Creator")
 
-        self.title1 = Label(window,text = "DFR Template maker")
-        self.title1.grid(row="0",column="0")
+        title1 = Label(window,text = "DFR Template maker")
+        title1.grid(row="0",column="0")
 
-        serviceLabel = Label(window, text="Services:")
-        serviceLabel.grid(row="1", column="0")
+        servicesLabel = Label(window, text="Services:")
+        servicesLabel.grid(row="1", column="0")
         self.renderServices()
 
         systemsLabel = Label(window, text="Systems:")
@@ -48,6 +49,9 @@ class Window(object):
         self.clearSections()
         i = len(self.data)+1
         for service in self.activeServices:
+            systemsLabel = Label(window, text=service)
+            systemsLabel.grid(row=i+2, column="0")
+            self.sectionsAdded.append(systemsLabel)
             for key in self.data[service]:
                 i+=1
                 section = Checkbutton(window, text=key)
@@ -72,9 +76,29 @@ class Window(object):
             'mech2, mech2, mech2',
             'mech3, mech3, mech3'
             ],
+            'VAV system': [
+            'mech1',
+            'mech2, mech2, mech2',
+            'mech3, mech3, mech3'
+            ],
         },
         'Electrical':{
             'Conduits': [
+            'Elec1',
+            'Elec2, Elec2, Elec2',
+            'Elec3, Elec3, Elec3'
+            ],
+            'Lights': [
+            'Elec1',
+            'Elec2, Elec2, Elec2',
+            'Elec3, Elec3, Elec3'
+            ],
+            'Distribution Boards': [
+            'Elec1',
+            'Elec2, Elec2, Elec2',
+            'Elec3, Elec3, Elec3'
+            ],
+            'Insulation': [
             'Elec1',
             'Elec2, Elec2, Elec2',
             'Elec3, Elec3, Elec3'
