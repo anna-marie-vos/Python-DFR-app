@@ -1,4 +1,4 @@
-from UI.index import *
+import ui
 
 def main():
     pass
