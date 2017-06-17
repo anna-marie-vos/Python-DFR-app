@@ -29,6 +29,7 @@ class Window(object):
     def renderServices(self):
         '''renders all se services Checkbuttons'''
         i = 0
+        
         for key, value in self.data.items():
             i +=1
             self.servicesVar.update({key:IntVar()})
@@ -42,9 +43,11 @@ class Window(object):
         '''Addes the active services to an array'''
         del self.activeServices[:]
         i = len(self.data)+1
+
         for key in self.servicesVar:
             if self.servicesVar[key].get() == 1:
                 self.activeServices.append(key)
+
         self.renderSections()
 
     def renderSections(self):
@@ -52,10 +55,12 @@ class Window(object):
         and renders all the relevent sections'''
         self.clearSections()
         i = len(self.data)+1
+
         for service in self.activeServices:
             systemsLabel = Label(window, text=service+":")
             systemsLabel.grid(row=i+2, column="0")
             self.sectionsAdded.append(systemsLabel)
+
             for key in self.data[service]:
                 i+=2
                 section = Checkbutton(window, text=key)
