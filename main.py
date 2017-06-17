@@ -1,4 +1,4 @@
-from UI.index import Window
+from UI.index import *
 
 def main():
     pass

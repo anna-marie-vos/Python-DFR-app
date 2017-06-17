@@ -5,3 +5,4 @@
 * You will be able to add a pic
 * You will be able to pick the various sections
 * convert to pdf will add the existing tick boxes to a pdf.
+* Tkinter docs: http://effbot.org/tkinterbook/label.htm
