@@ -6,11 +6,13 @@ class Window(object):
     def __init__(self,window):
         self.Data()
         self.allServices = []
-        self.servicesVar = {}
         self.allSections = []
+        self.allText = []
+        self.servicesVar = {}
         self.sectionsAdded = []
         self.activeServices = []
         self.activeServiceLabels = []
+        self.sectionsVar = {}
 
         self.window = window
         self.window.geometry("500x500+100+100")
@@ -26,10 +28,21 @@ class Window(object):
         systemsLabel = Label(window, text="Systems:")
         systemsLabel.grid(row=len(self.data)+1, column="0")
 
+    # def populateData(self):
+    #     for service in self.data:
+    #         self.allServices.append(service)
+    #         for section in self.data[service]:
+    #             self.allSections.append(section)
+    #             for para in self.data[service][section]:
+    #                 self.allText.append(para)
+    #     print('services: ',self.allServices)
+    #     print('sections: ',self.allSections)
+    #     print('text: ',self.allText)
+
     def renderServices(self):
         '''renders all se services Checkbuttons'''
         i = 0
-        
+
         for key, value in self.data.items():
             i +=1
             self.servicesVar.update({key:IntVar()})
@@ -37,7 +50,6 @@ class Window(object):
                 variable=self.servicesVar[key],
                 command=self.findActiveService)
             service.grid(row = i, column = 1)
-            self.allServices.append(service)
 
     def findActiveService(self):
         '''Addes the active services to an array'''
@@ -54,6 +66,7 @@ class Window(object):
         '''Checks which services are active
         and renders all the relevent sections'''
         self.clearSections()
+        self.clearText()
         i = len(self.data)+1
 
         for service in self.activeServices:
@@ -63,15 +76,39 @@ class Window(object):
 
             for key in self.data[service]:
                 i+=2
-                section = Checkbutton(window, text=key)
+                self.sectionsVar.update({key:IntVar()})
+                section = Checkbutton(window, text=key,
+                variable=self.sectionsVar[key],
+                command = self.renderSectionInfo)
                 section.grid(row=i+1,column = 1)
                 self.sectionsAdded.append(section)
-
 
     def clearSections(self):
         '''Clears the selected sections '''
         for obj in self.sectionsAdded:
             obj.destroy()
+
+    def clearText(self):
+        for obj in self.allText:
+            obj.destroy()
+
+    def renderSectionInfo(self):
+        for key in self.sectionsVar:
+            if self.sectionsVar[key].get() ==1:
+                print(key," : ", self.sectionsVar[key].get())
+                self.generateText()
+        print('---------------')
+
+
+    def generateText(self):
+        self.clearText()
+        i = len(self.data)+len(self.allSections)+2
+        print(i)
+        generalText = Text(window, width=4,height=4)
+        generalText.grid(
+            row= i,
+            column = 3)
+        self.allText.append(generalText)
 
     def Data(self):
         self.data = {
